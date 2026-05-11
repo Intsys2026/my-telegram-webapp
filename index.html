@@ -1,1 +1,19 @@
-<h1>Привет, это мой Web App!</h1>
+from telebot import types
+
+# Создаем кнопку-ссылку на ваш GitHub Pages
+def web_app_keyboard():
+    keyboard = types.InlineKeyboardMarkup()
+    # ЗАМЕНИТЕ ССЫЛКУ НА ВАШУ ИЗ GITHUB PAGES
+    web_app_url = "https://ваш_логин.github.io/название_репозитория/"
+    
+    web_app = types.WebAppInfo(web_app_url)
+    btn = types.InlineKeyboardButton(text="Открыть список задач", web_app=web_app)
+    
+    keyboard.add(btn)
+    return keyboard
+
+# Пример хендлера для проверки
+@bot.message_handler(commands=['test_web'])
+def test_web(message):
+    bot.send_message(message.chat.id, "Нажми на кнопку, чтобы открыть Web App:", 
+                     reply_markup=web_app_keyboard())
